@@ -1,5 +1,5 @@
 <template>
-  <a-entity :position="position" :v-bind="{ [componentName]: true }">
+  <a-entity :position="position" axis-boxes>
     <!-- Black cube -->
     <a-box
       position="0 0 0"
@@ -84,16 +84,14 @@ export default Vue.extend({
       default: '0 0 0',
     },
   },
-  data: () => ({
-    componentName: 'axis-boxes',
-  }),
+  data: () => ({}),
   mounted() {
     // Unregister components if it already exists
-    if (AFRAME.components[this.componentName]) {
-      delete AFRAME.components[this.componentName];
+    if (AFRAME.components['axis-boxes']) {
+      delete AFRAME.components['axis-boxes'];
     }
 
-    AFRAME.registerComponent(this.componentName, {
+    AFRAME.registerComponent('axis-boxes', {
       init: function () {
         // Zoom in
         this.el.setAttribute('animation__mouseenter', {

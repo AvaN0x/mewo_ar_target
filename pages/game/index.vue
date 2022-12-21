@@ -1,6 +1,7 @@
 <template>
   <a-scene cursor="rayOrigin: mouse;">
     <AxisEntity />
+    <BullsEye position="0 0 -5" rotation="0 0 0" />
     <a-cylinder color="#FF0000" position="0 0 3"></a-cylinder>
     <a-cylinder color="#FF00FF" position="0 0 -3"></a-cylinder>
     <a-cylinder color="#00FF00" position="3 0 0"></a-cylinder>
