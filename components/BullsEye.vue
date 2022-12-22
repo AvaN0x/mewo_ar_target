@@ -69,12 +69,14 @@ export default Vue.extend({
       delete AFRAME.components['bulls-eye-circle'];
     }
 
-    // TODO: same event for each with a param to identify which one was clicked
+    // init function only give the element through this, so we need to
+    // save the current this to be able to emit the event
+    const vm = this;
     AFRAME.registerComponent('bulls-eye-circle', {
       init: function () {
         this.el.addEventListener('click', () => {
-          const id = this.el.getAttribute('id');
-          console.log(id);
+          const id = this.el.getAttribute('id') as number;
+          vm.$emit('hit', id);
         });
       },
     } as ComponentDefinition);
