@@ -44,6 +44,7 @@
 
 <script lang="ts">
 import { ComponentDefinition } from 'aframe';
+import { Vector3 } from 'three';
 import Vue from 'vue';
 
 export default Vue.extend({
@@ -74,9 +75,10 @@ export default Vue.extend({
     const vm = this;
     AFRAME.registerComponent('bulls-eye-circle', {
       init: function () {
-        this.el.addEventListener('click', () => {
+        this.el.addEventListener('click', (event: any) => {
           const id = this.el.getAttribute('id') as number;
-          vm.$emit('hit', id);
+          const point = event.detail.intersection.point as Vector3;
+          vm.$emit('hit', { id, point });
         });
       },
     } as ComponentDefinition);
