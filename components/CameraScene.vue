@@ -1,7 +1,9 @@
 <template>
   <div>
     <video ref="cam" class="cam" autoplay playsinline></video>
-    <NuxtChild />
+    <a-scene v-bind="$attrs">
+      <slot :has-camera="hasCamera"></slot>
+    </a-scene>
   </div>
 </template>
 
@@ -17,13 +19,16 @@ export default Vue.extend({
         facingMode: 'environment',
       },
     },
+    hasCamera: false,
   }),
   async mounted() {
     // Access the device camera and stream to cameraView
     try {
       (this.$refs.cam as HTMLMediaElement).srcObject =
         await navigator.mediaDevices.getUserMedia(this.constraints);
+      this.hasCamera = true;
     } catch (error) {
+      this.hasCamera = false;
       console.error('An error happened while getting user media.', error);
     }
   },

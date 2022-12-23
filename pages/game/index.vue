@@ -1,5 +1,5 @@
 <template>
-  <a-scene cursor="rayOrigin: mouse;">
+  <CameraScene v-slot="{ hasCamera }" cursor="rayOrigin: mouse;">
     <AxisEntity />
     <a-cylinder color="#FF0000" position="0 0 3"></a-cylinder>
     <a-cylinder color="#FF00FF" position="0 0 -3"></a-cylinder>
@@ -14,7 +14,16 @@
       :down="bullsEye.down"
       @hit="onHit({ ...$event, bullsEyeId: bullsEye.id })"
     />
-  </a-scene>
+
+    <a-sky v-if="!hasCamera" color="#4e77b9" />
+    <a-plane
+      v-if="!hasCamera"
+      color="#98cf44"
+      height="20"
+      width="20"
+      rotation="-90 0 0"
+    />
+  </CameraScene>
 </template>
 
 <script lang="ts">
