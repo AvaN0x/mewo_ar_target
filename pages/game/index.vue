@@ -50,6 +50,15 @@ export default Vue.extend({
       },
     ] as BullsEye[],
   }),
+  mounted() {
+    const bullsEye = this.bullsEyes.find((b) => b.id === 3);
+    if (!bullsEye) {
+      return;
+    }
+    setTimeout(() => {
+      bullsEye.down = false;
+    }, 1000);
+  },
   methods: {
     onHit({
       bullsEyeId,
@@ -70,7 +79,7 @@ export default Vue.extend({
       );
 
       const bullsEye = this.bullsEyes.find((b) => b.id === bullsEyeId);
-      if (!bullsEye) {
+      if (!bullsEye || bullsEye.down) {
         return;
       }
       bullsEye.down = true;
@@ -78,7 +87,6 @@ export default Vue.extend({
       setTimeout(() => {
         bullsEye.down = false;
       }, 1000);
-      console.log(bullsEye);
     },
   },
 });

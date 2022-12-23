@@ -1,7 +1,7 @@
 <template>
   <a-entity :position="position" :rotation="rotation">
     <!-- #region BullsEye and stand -->
-    <a-entity :rotation="standRotation" position="0 0.1 0">
+    <a-entity ref="bullseye" :rotation="standRotation" position="0 0.1 0">
       <!-- #region BullsEye -->
       <a-entity position="0 1.75 0.25">
         <a-ring
@@ -113,6 +113,7 @@
 
 <script lang="ts">
 import { Vector3 } from 'three';
+import { Entity } from 'aframe';
 import Vue from 'vue';
 
 type Ring = {
@@ -152,6 +153,18 @@ export default Vue.extend({
   computed: {
     standRotation(): string {
       return this.down ? '-90 0 0' : '0 0 0';
+    },
+  },
+  watch: {
+    down() {
+      (this.$refs.bullseye as Entity).setAttribute(
+        'animation__changedownstate',
+        {
+          property: 'rotation',
+          to: this.down ? '-90 0 0' : '0 0 0',
+          dur: this.down ? 150 : 500,
+        }
+      );
     },
   },
   mounted() {
