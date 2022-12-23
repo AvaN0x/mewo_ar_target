@@ -12,6 +12,17 @@ module.exports = {
     plugins: [],
     // add your custom rules here
     rules: {
-        'no-console': ["warn", { allow: ["warn", "error"] }]
+        'no-console': ["warn", { allow: ["warn", "error"] }],
+        "vue/multi-word-component-names": ["error", {
+            "ignores": ["components/**/*"]
+        }]
     },
+    overrides: [
+        {
+            files: ['pages/**', 'components/*/**'],
+            rules: {
+                'vue/multi-word-component-names': 'off',
+            },
+        },
+    ]
 }
