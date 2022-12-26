@@ -1,6 +1,7 @@
 <template>
   <div>
     <NuxtLink to="/game">Game</NuxtLink>
+    <NuxtLink to="/playground">Playground</NuxtLink>
   </div>
 </template>
 

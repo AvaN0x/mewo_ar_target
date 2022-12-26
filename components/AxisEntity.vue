@@ -84,7 +84,6 @@ export default Vue.extend({
       default: '0 0 0',
     },
   },
-  data: () => ({}),
   mounted() {
     // Unregister components if it already exists
     if (AFRAME.components['axis-boxes']) {

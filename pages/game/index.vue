@@ -1,29 +1,37 @@
 <template>
-  <CameraScene v-slot="{ hasCamera }" cursor="rayOrigin: mouse;">
-    <AxisEntity />
-    <a-cylinder color="#FF0000" position="0 0 3"></a-cylinder>
-    <a-cylinder color="#FF00FF" position="0 0 -3"></a-cylinder>
-    <a-cylinder color="#00FF00" position="3 0 0"></a-cylinder>
-    <a-cylinder color="#0000FF" position="-3 0 0"></a-cylinder>
+  <div>
+    <CameraScene v-slot="{ hasCamera }">
+      <AxisEntity />
 
-    <BullsEye
-      v-for="bullsEye in bullsEyes"
-      :key="bullsEye.id"
-      :position="bullsEye.position"
-      :rotation="bullsEye.rotation"
-      :down="bullsEye.down"
-      @hit="onHit({ ...$event, bullsEyeId: bullsEye.id })"
-    />
+      <a-entity camera look-controls position="0 1 0">
+        <!-- Entity as cursor -->
+        <CustomCursor />
+      </a-entity>
 
-    <a-sky v-if="!hasCamera" color="#4e77b9" />
-    <a-plane
-      v-if="!hasCamera"
-      color="#98cf44"
-      height="20"
-      width="20"
-      rotation="-90 0 0"
-    />
-  </CameraScene>
+      <a-cylinder color="#FF0000" position="0 0 3"></a-cylinder>
+      <a-cylinder color="#FF00FF" position="0 0 -3"></a-cylinder>
+      <a-cylinder color="#00FF00" position="3 0 0"></a-cylinder>
+      <a-cylinder color="#0000FF" position="-3 0 0"></a-cylinder>
+
+      <BullsEye
+        v-for="bullsEye in bullsEyes"
+        :key="bullsEye.id"
+        :position="bullsEye.position"
+        :rotation="bullsEye.rotation"
+        :down="bullsEye.down"
+        @hit="onHit({ ...$event, bullsEyeId: bullsEye.id })"
+      />
+
+      <a-sky v-if="!hasCamera" color="#4e77b9" />
+      <a-plane
+        v-if="!hasCamera"
+        color="#98cf44"
+        height="20"
+        width="20"
+        rotation="-90 0 0"
+      />
+    </CameraScene>
+  </div>
 </template>
 
 <script lang="ts">
@@ -55,38 +63,20 @@ export default Vue.extend({
         id: 3,
         position: '3 0 -8',
         rotation: '0 0 0',
-        down: true,
+        down: false,
       },
     ] as BullsEye[],
   }),
-  mounted() {
-    const bullsEye = this.bullsEyes.find((b) => b.id === 3);
-    if (!bullsEye) {
-      return;
-    }
-    setTimeout(() => {
-      bullsEye.down = false;
-    }, 1000);
-  },
   methods: {
     onHit({
       bullsEyeId,
-      id: circleId,
-      point,
+      id: _circleId,
+      point: _point,
     }: {
       bullsEyeId: number;
       id: number;
       point: any;
     }) {
-      console.log(
-        'bullsEyeId',
-        bullsEyeId,
-        'circleId',
-        circleId,
-        'point',
-        point
-      );
-
       const bullsEye = this.bullsEyes.find((b) => b.id === bullsEyeId);
       if (!bullsEye || bullsEye.down) {
         return;
