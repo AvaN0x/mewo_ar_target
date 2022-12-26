@@ -1,5 +1,5 @@
 <template>
-  <a-entity :position="position" axis-boxes>
+  <a-entity :position="position" :rotation="rotation" axis-boxes>
     <!-- Black cube -->
     <a-box
       position="0 0 0"
@@ -11,13 +11,7 @@
     ></a-box>
 
     <!-- X -->
-    <a-text value="X" position="0.5 0 0" color="#FF0000"></a-text>
-    <a-text
-      value="X"
-      position="0.7 0 0"
-      rotation="0 180 0"
-      color="#FF0000"
-    ></a-text>
+    <a-text value="X" position="0.5 0 0" color="#FF0000" side="double"></a-text>
     <a-box
       position="0.25 0 0"
       rotation="0 0 0"
@@ -33,12 +27,7 @@
       position="-0.066 0.66 0"
       rotation="0 45 0"
       color="#00FF00"
-    ></a-text>
-    <a-text
-      value="Y"
-      position="0.066 0.66 0"
-      rotation="0 225 0"
-      color="#00FF00"
+      side="double"
     ></a-text>
     <a-box
       position="0 0.25 0"
@@ -55,12 +44,7 @@
       position="0 0 0.66"
       rotation="0 90 0"
       color="#0000FF"
-    ></a-text>
-    <a-text
-      value="Z"
-      position="0 0 0.5"
-      rotation="0 270 0"
-      color="#0000FF"
+      side="double"
     ></a-text>
     <a-box
       position="0 0 0.25"
@@ -79,6 +63,11 @@ import Vue from 'vue';
 export default Vue.extend({
   props: {
     position: {
+      type: String,
+      required: false,
+      default: '0 0 0',
+    },
+    rotation: {
       type: String,
       required: false,
       default: '0 0 0',

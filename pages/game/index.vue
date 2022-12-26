@@ -14,6 +14,7 @@
         :down="bullsEye.down"
         @hit="onHit({ ...$event, bullsEyeId: bullsEye.id })"
       />
+      <EntityElementRenderer ref="renderer" />
 
       <a-sky v-if="!hasCamera" color="#4e77b9" />
       <a-plane
@@ -29,6 +30,9 @@
 
 <script lang="ts">
 import Vue from 'vue';
+import type { Vector3 } from 'three';
+import ObjectPoint from '~/components/object/Point.vue';
+import EntityElementRenderer from '~/components/EntityElementRenderer.vue';
 
 type BullsEye = {
   id: number;
@@ -63,22 +67,44 @@ export default Vue.extend({
   methods: {
     onHit({
       bullsEyeId,
-      id: _circleId,
-      point: _point,
+      id: circleId,
+      position,
     }: {
       bullsEyeId: number;
       id: number;
-      point: any;
+      position: Vector3;
     }) {
+      // Get bulls eye
       const bullsEye = this.bullsEyes.find((b) => b.id === bullsEyeId);
       if (!bullsEye || bullsEye.down) {
         return;
       }
-      bullsEye.down = true;
 
+      // Set bulls eye down and up after 1 second
+      bullsEye.down = true;
       setTimeout(() => {
         bullsEye.down = false;
       }, 1000);
+
+      // Render added points
+      const ComponentClass = Vue.extend(ObjectPoint);
+      const instance = new ComponentClass({
+        propsData: {
+          position: `${position.x} ${position.y} ${position.z}`,
+          rotation: bullsEye.rotation,
+          value: circleId,
+          color: '#56b700',
+        },
+      });
+      instance.$mount();
+
+      (
+        this.$refs.renderer as InstanceType<typeof EntityElementRenderer>
+      ).addEntityElement({
+        instance,
+        duration: 1000,
+        // removeFunction: () => {},
+      });
     },
   },
 });
