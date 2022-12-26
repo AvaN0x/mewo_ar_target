@@ -13,6 +13,7 @@
           :radius-inner="ring.radiusInner"
           :radius-outer="ring.radiusOuter"
           bulls-eye-circle
+          data-clickable
         ></a-ring>
 
         <a-cylinder
