@@ -112,9 +112,10 @@
 </template>
 
 <script lang="ts">
-import { Vector3 } from 'three';
-import { Entity } from 'aframe';
+import type { Vector3 } from 'three';
+import type { Entity } from 'aframe';
 import Vue from 'vue';
+import throttle from 'lodash/throttle';
 
 type Ring = {
   id: number;
@@ -175,18 +176,26 @@ export default Vue.extend({
 
     // Add click events to rings
     for (const ring of this.$refs.ring as Element[]) {
-      ring.addEventListener('click', (event: any) => {
-        if (this.down) {
-          return;
-        }
+      ring.addEventListener(
+        'click',
+        throttle((event: any) => {
+          if (this.down) {
+            return;
+          }
+          const id = ring.getAttribute('ring-id');
+          if (id === null) {
+            return;
+          }
 
-        const id = ring.getAttribute('ring-id');
-        if (id === null) {
-          return;
-        }
-        const point = event.detail.intersection.point as Vector3;
-        this.$emit('hit', { id, point });
-      });
+          try {
+            const point = event.detail.intersection.point as Vector3;
+            this.$emit('hit', { id, point });
+          } catch (error) {
+            // Error can be thrown if intersection point is not available
+            // In this case we just ignore the click
+          }
+        }, 500)
+      );
     }
   },
 });
