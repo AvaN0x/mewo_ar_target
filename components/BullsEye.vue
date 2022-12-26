@@ -190,7 +190,7 @@ export default Vue.extend({
 
           try {
             const position = event.detail.intersection.point as Vector3;
-            this.$emit('hit', { id, position });
+            this.$emit('hit', { id: Number(id), position });
           } catch (error) {
             // Error can be thrown if intersection point is not available
             // In this case we just ignore the click
