@@ -36,7 +36,6 @@
 
 <script lang="ts">
 import Vue, { PropType } from 'vue';
-import type { Vector3 } from 'three';
 import ObjectPoint from '~/components/object/Point.vue';
 import EntityElementRenderer from '~/components/EntityElementRenderer.vue';
 
@@ -58,15 +57,7 @@ export default Vue.extend({
     },
   },
   methods: {
-    onHit({
-      bullsEyeId,
-      id: circleId,
-      position,
-    }: {
-      bullsEyeId: number;
-      id: number;
-      position: Vector3;
-    }) {
+    onHit({ bullsEyeId, id: circleId, position }: BullsEyeOnHit) {
       // Get bulls eye
       const bullsEye = this.bullsEyes.find((b) => b.id === bullsEyeId);
       if (!bullsEye || bullsEye.down) {
@@ -102,7 +93,12 @@ export default Vue.extend({
       });
 
       // Emit hit event for parent
-      this.$emit('hit', { bullsEyeId, circleId, position, points });
+      this.$emit('hit', {
+        bullsEyeId,
+        circleId,
+        position,
+        points,
+      } as GameBaseOnHit);
     },
   },
 });

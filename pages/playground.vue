@@ -20,7 +20,6 @@
 
 <script lang="ts">
 import Vue from 'vue';
-import type { Vector3 } from 'three';
 
 export default Vue.extend({
   data: () => ({
@@ -46,15 +45,7 @@ export default Vue.extend({
     ] as BullsEye[],
   }),
   methods: {
-    onHit({
-      bullsEyeId,
-      id: circleId,
-      position,
-    }: {
-      bullsEyeId: number;
-      id: number;
-      position: Vector3;
-    }) {
+    onHit({ bullsEyeId, circleId, position }: GameBaseOnHit) {
       console.log(
         'bullsEyeId',
         bullsEyeId,

@@ -1,7 +1,25 @@
 <template>
   <div>
+    <div
+      v-if="status === 'gameOver'"
+      style="
+        position: absolute;
+        height: 100%;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        background-color: #00000080;
+        z-index: 2;
+      "
+    >
+      <h1>Game Over</h1>
+      <h2>Points: {{ points }}</h2>
+      <button @click="$router.push('/')">Continue</button>
+    </div>
     <GameBase :bulls-eyes="bullsEyes" @hit="onHit">
-      <template #hud>
+      <template v-if="status === 'playing'" #hud>
         <button
           style="
             position: absolute;
@@ -13,15 +31,17 @@
           Test
         </button>
 
-        <span
+        <div
           style="
             position: absolute;
             top: 1rem;
             left: 50%;
             transform: translateX(-50%);
           "
-          >Points: {{ points }}</span
         >
+          <span> Points: {{ points }} </span>
+          <CountDown v-model="countdown" @end="gameEnd"> </CountDown>
+        </div>
       </template>
     </GameBase>
   </div>
@@ -29,11 +49,12 @@
 
 <script lang="ts">
 import Vue from 'vue';
-import type { Vector3 } from 'three';
 
 export default Vue.extend({
   data: () => ({
+    status: 'playing' as GameStatus,
     points: 0,
+    countdown: 60000,
     bullsEyes: [
       {
         id: 1,
@@ -56,26 +77,20 @@ export default Vue.extend({
     ] as BullsEye[],
   }),
   methods: {
+    gameEnd() {
+      console.log('game over', this.points);
+      this.status = 'gameOver';
+    },
     onHit({
-      bullsEyeId,
-      id: circleId,
-      position,
+      //   bullsEyeId,
+      //   circleId,
+      //   position,
       points,
-    }: {
-      bullsEyeId: number;
-      id: number;
-      position: Vector3;
-      points: number;
-    }) {
+    }: GameBaseOnHit) {
       this.points += points;
-      console.log(
-        'bullsEyeId',
-        bullsEyeId,
-        'circleId',
-        circleId,
-        'position',
-        position
-      );
+      if (points === 4) {
+        this.countdown += 2000;
+      }
     },
   },
 });
