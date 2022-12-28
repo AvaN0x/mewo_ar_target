@@ -10,15 +10,19 @@
         align-items: center;
         justify-content: center;
         flex-direction: column;
-        background-color: #00000080;
+        background-color: #000000a0;
         z-index: 2;
+        color: white;
       "
     >
       <h1>Game Over</h1>
       <h2>Points: {{ points }}</h2>
-      <button @click="$router.push('/')">Continue</button>
+      <GameLink to="/" style="width: min(90%, 400px)">Continue</GameLink>
     </div>
     <GameBase :bulls-eyes="bullsEyes" @hit="onHit">
+      <!-- Hide cursor on game over -->
+      <template v-if="status === 'gameOver'" #cursor><div></div></template>
+
       <template v-if="status === 'playing'" #hud>
         <button
           style="
@@ -54,7 +58,7 @@ export default Vue.extend({
   data: () => ({
     status: 'playing' as GameStatus,
     points: 0,
-    countdown: 60000,
+    countdown: 6000,
     bullsEyes: [
       {
         id: 1,
@@ -78,7 +82,6 @@ export default Vue.extend({
   }),
   methods: {
     gameEnd() {
-      console.log('game over', this.points);
       this.status = 'gameOver';
     },
     onHit({
@@ -90,6 +93,7 @@ export default Vue.extend({
       this.points += points;
       if (points === 4) {
         this.countdown += 2000;
+        // TODO display that a time bonus was added somewhere
       }
     },
   },

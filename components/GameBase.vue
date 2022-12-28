@@ -17,9 +17,9 @@
       />
       <EntityElementRenderer ref="renderer" />
 
-      <slot name="entities"></slot>
+      <slot name="entities" :has-camera="hasCamera"></slot>
 
-      <slot name="background">
+      <slot name="background" :has-camera="hasCamera">
         <a-sky v-if="!hasCamera" color="#4e77b9" />
         <a-plane
           v-if="!hasCamera"
