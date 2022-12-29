@@ -30,6 +30,7 @@ export default Vue.extend({});
       color: #fff;
       text-decoration: none;
       font-weight: bold;
+      user-select: none;
 
       &:before {
         content: '←';

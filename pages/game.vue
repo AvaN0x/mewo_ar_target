@@ -151,6 +151,7 @@ export default Vue.extend({
       display: flex;
       justify-content: space-between;
       margin-left: 2rem;
+      user-select: none;
 
       // Pipe on the left
       &:before {

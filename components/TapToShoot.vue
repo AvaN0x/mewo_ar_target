@@ -22,6 +22,7 @@ export default Vue.extend({});
   align-items: center;
   color: #fff;
   pointer-events: none;
+  user-select: none;
 
   & > div {
     position: relative;
