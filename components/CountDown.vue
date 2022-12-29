@@ -83,7 +83,13 @@ export default Vue.extend({
   },
   methods: {
     startInterval() {
+      // Stop interval if already running
+      this.stopInterval();
+
+      // Emit start event
       this.$emit('start', true);
+
+      // Start interval
       this.intervalId = setInterval(() => {
         const value = this.value - this.interval;
         if (value <= 0) {
