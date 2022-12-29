@@ -5,7 +5,8 @@
       <h1>BullsEye</h1>
     </div>
     <div class="nav">
-      <GameLink to="/game">Game</GameLink>
+      <GameLink to="/game">Game easy</GameLink>
+      <GameLink to="/game/normal">Game normal</GameLink>
       <GameLink to="/playground">Playground</GameLink>
     </div>
     <div class="copyright">

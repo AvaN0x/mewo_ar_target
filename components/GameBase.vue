@@ -113,6 +113,7 @@ export default Vue.extend({
   methods: {
     gameEnd() {
       this.status = 'gameOver';
+      this.$emit('gameEnd', this.points);
     },
     onHit({ bullsEyeId, id: circleId, position }: BullsEyeOnHit) {
       // Get bulls eye
