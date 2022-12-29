@@ -1,7 +1,7 @@
 <template>
   <div>
     <CameraScene v-slot="{ hasCamera }" v-bind="sceneBind">
-      <a-entity camera look-controls position="0 2 0" v-bind="cameraBind">
+      <a-entity camera look-controls position="0 3 0" v-bind="cameraBind">
         <slot name="cursor">
           <CustomCursor />
         </slot>
