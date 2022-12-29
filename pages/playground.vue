@@ -4,15 +4,11 @@
       :bulls-eyes="bullsEyes"
       :scene-bind="{ cursor: 'rayOrigin: mouse;' }"
       wasd-controls
+      disabled-count-down
       @hit="onHit"
     >
       <template #entities>
         <AxisEntity />
-      </template>
-
-      <template #hud>
-        <TopBar />
-        <TapToShoot />
       </template>
     </GameBase>
   </div>
@@ -110,4 +106,4 @@ export default Vue.extend({
 });
 </script>
 
-<style lang="css" scoped></style>
+<style lang="scss" scoped></style>

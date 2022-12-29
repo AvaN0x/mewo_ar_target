@@ -35,7 +35,7 @@ export default Vue.extend({
 });
 </script>
 
-<style lang="css" scoped>
+<style lang="scss" scoped>
 .cam {
   position: fixed;
   background-size: 100% 100%;
