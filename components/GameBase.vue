@@ -64,12 +64,6 @@ export default Vue.extend({
         return;
       }
 
-      // Set bulls eye down and up after 1 second
-      bullsEye.down = true;
-      setTimeout(() => {
-        bullsEye.down = false;
-      }, 1000);
-
       const points = circleId;
 
       // Render added points
@@ -94,6 +88,7 @@ export default Vue.extend({
 
       // Emit hit event for parent
       this.$emit('hit', {
+        bullsEye,
         bullsEyeId,
         circleId,
         position,

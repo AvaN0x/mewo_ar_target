@@ -73,12 +73,13 @@ export default Vue.extend({
     gameEnd() {
       this.status = 'gameOver';
     },
-    onHit({
-      //   bullsEyeId,
-      //   circleId,
-      //   position,
-      points,
-    }: GameBaseOnHit) {
+    onHit({ bullsEye, points }: GameBaseOnHit) {
+      // Set bulls eye down and up after a time between 1 and 3 second
+      bullsEye.down = true;
+      setTimeout(() => {
+        bullsEye.down = false;
+      }, (Math.random() * 2 + 1) * 1000);
+
       this.points += points;
       if (points === 4) {
         this.countdown += 2000;

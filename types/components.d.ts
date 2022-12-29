@@ -20,6 +20,7 @@ type BullsEyeOnHit = {
 type GameBaseOnHit = Omit<BullsEyeOnHit, 'id'> & {
   circleId: number;
   points: number;
+  bullsEye: BullsEye;
 };
 
 type GameStatus = 'playing' | 'gameOver';
