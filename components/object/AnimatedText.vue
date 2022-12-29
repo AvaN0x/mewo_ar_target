@@ -1,7 +1,7 @@
 <template>
   <a-entity :position="position" :rotation="rotation">
     <a-text
-      :value="`+${value}`"
+      :value="label"
       position="0 0 0.02"
       :color="color"
       scale="1.5 1.5 1.5"
@@ -27,10 +27,10 @@ export default Vue.extend({
       required: false,
       default: '0 0 0',
     },
-    value: {
-      type: Number,
+    label: {
+      type: String,
       required: false,
-      default: 0,
+      default: '',
     },
     color: {
       type: String,

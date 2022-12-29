@@ -36,8 +36,8 @@
 
 <script lang="ts">
 import Vue, { PropType } from 'vue';
-import ObjectPoint from '~/components/object/Point.vue';
-import EntityElementRenderer from '~/components/EntityElementRenderer.vue';
+import ObjectAnimatedText from '~/components/object/AnimatedText.vue';
+import type EntityElementRenderer from '~/components/EntityElementRenderer.vue';
 
 export default Vue.extend({
   props: {
@@ -66,24 +66,24 @@ export default Vue.extend({
 
       const points = circleId;
 
-      // Render added points
-      const ComponentClass = Vue.extend(ObjectPoint);
+      // Render added points text
+      const ComponentClass = Vue.extend(ObjectAnimatedText);
       const instance = new ComponentClass({
         propsData: {
           position: `${position.x} ${position.y} ${position.z}`,
           rotation: bullsEye.rotation,
-          value: points,
+          label: `+${points}`,
           color: '#56b700',
         },
       });
       instance.$mount();
 
-      (
-        this.$refs.renderer as InstanceType<typeof EntityElementRenderer>
-      ).addEntityElement({
+      const renderer = this.$refs.renderer as InstanceType<
+        typeof EntityElementRenderer
+      >;
+      renderer.addEntityElement({
         instance,
         duration: 1000,
-        // removeFunction: () => {},
       });
 
       // Emit hit event for parent
@@ -93,6 +93,7 @@ export default Vue.extend({
         circleId,
         position,
         points,
+        renderer,
       } as GameBaseOnHit);
     },
   },

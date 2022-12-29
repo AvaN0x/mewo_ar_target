@@ -21,6 +21,9 @@ type GameBaseOnHit = Omit<BullsEyeOnHit, 'id'> & {
   circleId: number;
   points: number;
   bullsEye: BullsEye;
+  renderer: InstanceType<
+    typeof import('~/components/EntityElementRenderer.vue').default
+  >;
 };
 
 type GameStatus = 'playing' | 'gameOver';

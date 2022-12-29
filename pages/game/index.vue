@@ -30,7 +30,8 @@
 
 <script lang="ts">
 import Vue from 'vue';
-import { msToTimeStr } from '~/functions/time';
+import ObjectAnimatedText from '~/components/object/AnimatedText.vue';
+import { msToTimeStr, msToSeconds } from '~/functions/time';
 
 export default Vue.extend({
   data: () => ({
@@ -72,7 +73,7 @@ export default Vue.extend({
     gameEnd() {
       this.status = 'gameOver';
     },
-    onHit({ bullsEye, points }: GameBaseOnHit) {
+    onHit({ bullsEye, points, position, renderer }: GameBaseOnHit) {
       // Set bulls eye down and up after a time between 1 and 3 second
       bullsEye.down = true;
       setTimeout(() => {
@@ -81,9 +82,26 @@ export default Vue.extend({
 
       this.points += points;
       if (points === 4) {
-        this.countdown += 2000;
-        this.totalPlayTime += 2000;
-        // TODO display that a time bonus was added somewhere
+        const addedTime = 2000;
+        this.countdown += addedTime;
+        this.totalPlayTime += addedTime;
+
+        // Render added time text
+        const ComponentClass = Vue.extend(ObjectAnimatedText);
+        const instance = new ComponentClass({
+          propsData: {
+            position: `${position.x + 0.5} ${position.y} ${position.z}`,
+            rotation: bullsEye.rotation,
+            label: `+${msToSeconds(addedTime)}s`,
+            color: '#fcba03',
+          },
+        });
+        instance.$mount();
+
+        renderer.addEntityElement({
+          instance,
+          duration: 1000,
+        });
       }
     },
   },
