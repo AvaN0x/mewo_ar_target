@@ -19,6 +19,15 @@
 
 <script lang="ts">
 import Vue from 'vue';
+import {
+  msToHours,
+  msToHoursStr,
+  msToMinutes,
+  msToMinutesStr,
+  msToSeconds,
+  msToSecondsStr,
+  msToTimeStr,
+} from '~/functions/time';
 
 export default Vue.extend({
   props: {
@@ -37,29 +46,25 @@ export default Vue.extend({
   }),
   computed: {
     time(): string {
-      let res = `${this.minutesStr}:${this.secondsStr}`;
-      if (this.hours > 0) {
-        res = `${this.hoursStr}:${res}`;
-      }
-      return res;
+      return msToTimeStr(this.value);
     },
     hours(): number {
-      return Math.floor(this.value / 1000 / 60 / 60);
+      return msToHours(this.value);
     },
     hoursStr(): string {
-      return this.numberToTwoDigit(this.hours);
+      return msToHoursStr(this.value);
     },
     minutes(): number {
-      return Math.floor(this.value / 1000 / 60) % 60;
+      return msToMinutes(this.value);
     },
     minutesStr(): string {
-      return this.numberToTwoDigit(this.minutes);
+      return msToMinutesStr(this.value);
     },
     seconds(): number {
-      return Math.floor(this.value / 1000) % 60;
+      return msToSeconds(this.value);
     },
     secondsStr(): string {
-      return this.numberToTwoDigit(this.seconds);
+      return msToSecondsStr(this.value);
     },
   },
   watch: {
@@ -77,9 +82,6 @@ export default Vue.extend({
     this.stopInterval();
   },
   methods: {
-    numberToTwoDigit(value: number): string {
-      return value.toLocaleString('en-US', { minimumIntegerDigits: 2 });
-    },
     startInterval() {
       this.$emit('start', true);
       this.intervalId = setInterval(() => {
