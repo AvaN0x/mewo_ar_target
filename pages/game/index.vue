@@ -16,8 +16,13 @@
 
       <template v-if="status === 'playing'" #hud>
         <div class="hud-top-bar">
-          <span> Points: {{ points }} </span>
-          <CountDown v-model="countdown" @end="gameEnd"> </CountDown>
+          <div class="hud-top-bar-leave">
+            <NuxtLink to="/">Leave</NuxtLink>
+          </div>
+          <div class="hud-top-bar-stats">
+            <span> Points: {{ points }} </span>
+            <CountDown v-model="countdown" @end="gameEnd"> </CountDown>
+          </div>
         </div>
 
         <div class="hud-tap-to-shoot">
@@ -133,11 +138,43 @@ export default Vue.extend({
     left: 0;
     width: 100%;
     padding: 0.2rem 1rem;
-    display: flex;
-    justify-content: space-between;
     background-color: #000a;
     color: #fff;
     font-size: 1.4rem;
+    display: flex;
+
+    &-leave {
+      position: relative;
+      margin-right: 2rem;
+
+      a {
+        color: #fff;
+        text-decoration: none;
+        font-weight: bold;
+
+        &:before {
+          content: '←';
+          margin-right: 0.5rem;
+        }
+      }
+
+      // Pipe on the right
+      &:after {
+        content: '';
+        position: absolute;
+        top: 10%;
+        right: -1rem;
+        display: block;
+        width: 1px;
+        height: 80%;
+        background-color: #fff;
+      }
+    }
+    &-stats {
+      flex: 1;
+      display: flex;
+      justify-content: space-between;
+    }
   }
 
   &-tap-to-shoot {
