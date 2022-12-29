@@ -15,20 +15,14 @@
       <template v-if="status === 'gameOver'" #cursor><div></div></template>
 
       <template v-if="status === 'playing'" #hud>
-        <div class="hud-top-bar">
-          <div class="hud-top-bar-leave">
-            <NuxtLink to="/">Leave</NuxtLink>
-          </div>
+        <TopBar class="hud-top-bar">
           <div class="hud-top-bar-stats">
             <span> Points: {{ points }} </span>
             <CountDown v-model="countdown" @end="gameEnd"> </CountDown>
           </div>
-        </div>
+        </TopBar>
 
-        <div class="hud-tap-to-shoot">
-          <div></div>
-          <span>Tap to shoot</span>
-        </div>
+        <TapToShoot />
       </template>
     </GameBase>
   </div>
@@ -133,47 +127,24 @@ export default Vue.extend({
 
 .hud {
   &-top-bar {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    padding: 0.2rem 1rem;
-    background-color: #000a;
-    color: #fff;
-    font-size: 1.4rem;
-    display: flex;
-
-    &-leave {
+    &-stats {
       position: relative;
-      margin-right: 2rem;
+      flex: 1;
+      display: flex;
+      justify-content: space-between;
+      margin-left: 2rem;
 
-      a {
-        color: #fff;
-        text-decoration: none;
-        font-weight: bold;
-
-        &:before {
-          content: '←';
-          margin-right: 0.5rem;
-        }
-      }
-
-      // Pipe on the right
-      &:after {
+      // Pipe on the left
+      &:before {
         content: '';
         position: absolute;
         top: 10%;
-        right: -1rem;
+        left: -1rem;
         display: block;
         width: 1px;
         height: 80%;
         background-color: #fff;
       }
-    }
-    &-stats {
-      flex: 1;
-      display: flex;
-      justify-content: space-between;
     }
   }
 
