@@ -37,7 +37,7 @@ export default Vue.extend({
   data: () => ({
     status: 'playing' as GameStatus,
     points: 0,
-    countdown: 600000,
+    countdown: 30000,
     totalPlayTime: 0 as number,
     bullsEyes: [
       {

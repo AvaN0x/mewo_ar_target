@@ -21,6 +21,7 @@ export default Vue.extend({});
   flex-direction: column;
   align-items: center;
   color: #fff;
+  pointer-events: none;
 
   & > div {
     position: relative;
