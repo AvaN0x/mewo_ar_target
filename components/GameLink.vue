@@ -21,10 +21,10 @@ export default Vue.extend({});
   border-radius: 0.2rem;
   text-decoration: none;
   text-align: center;
+  transition: background-color 0.2s;
 
   &:hover {
-    background-color: white;
-    color: black;
+    background-color: #fff4;
   }
 }
 </style>
