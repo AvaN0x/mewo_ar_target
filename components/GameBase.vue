@@ -31,11 +31,10 @@
 
       <slot name="background" :has-camera="hasCamera" :status="status">
         <a-sky v-if="!hasCamera" color="#4e77b9" />
-        <a-plane
+        <a-circle
           v-if="!hasCamera"
           color="#98cf44"
-          height="20"
-          width="20"
+          radius="12"
           rotation="-90 0 0"
         />
       </slot>
