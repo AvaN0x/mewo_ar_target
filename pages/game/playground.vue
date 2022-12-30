@@ -36,6 +36,14 @@ export default Vue.extend({
       intervalId: undefined as NodeJS.Timer | undefined,
     };
   },
+  mounted() {
+    // Make all bullseye go up after 5 seconds
+    setTimeout(() => {
+      for (const bullsEye of this.bullsEyes) {
+        bullsEye.down = false;
+      }
+    }, 5000);
+  },
   methods: {
     onHit({ bullsEye }: GameBaseOnHit) {
       // Set bulls eye down and up after 500ms
