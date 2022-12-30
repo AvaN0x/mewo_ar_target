@@ -13,17 +13,18 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue';
+import type { Vector3 } from 'three';
+import Vue, { PropType } from 'vue';
 
 export default Vue.extend({
   props: {
     position: {
-      type: String,
+      type: [String, Object] as PropType<string | Vector3>,
       required: false,
       default: '0 0 0',
     },
     rotation: {
-      type: String,
+      type: [String, Object] as PropType<string | Vector3>,
       required: false,
       default: '0 0 0',
     },

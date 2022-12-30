@@ -113,10 +113,10 @@
 </template>
 
 <script lang="ts">
+import Vue, { PropType } from 'vue';
+import throttle from 'lodash/throttle';
 import type { Vector3 } from 'three';
 import type { Entity } from 'aframe';
-import Vue from 'vue';
-import throttle from 'lodash/throttle';
 
 type Ring = {
   id: number;
@@ -128,12 +128,12 @@ type Ring = {
 export default Vue.extend({
   props: {
     position: {
-      type: String,
+      type: [String, Object] as PropType<string | Vector3>,
       required: false,
       default: '0 0 0',
     },
     rotation: {
-      type: String,
+      type: [String, Object] as PropType<string | Vector3>,
       required: false,
       default: '0 0 0',
     },

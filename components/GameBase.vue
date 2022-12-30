@@ -5,7 +5,7 @@
       <p>
         Points: <span>{{ points }}</span>
       </p>
-      <p v-if="!disabledCountDown">
+      <p v-if="!disabledCountdown">
         Total Play Time: <span>{{ totalPlayTimeStr }}</span>
       </p>
       <GameLink to="/">Continue</GameLink>
@@ -44,7 +44,7 @@
       <div class="hud-top-bar-stats">
         <span> Points: {{ points }} </span>
         <CountDown
-          v-if="!disabledCountDown"
+          v-if="!disabledCountdown"
           v-model="countdown"
           @end="gameEnd"
         />
@@ -78,7 +78,7 @@ export default Vue.extend({
       required: false,
       default: () => ({}),
     },
-    disabledCountDown: {
+    disabledCountdown: {
       type: Boolean,
       required: false,
       default: false,
@@ -129,7 +129,7 @@ export default Vue.extend({
       const ComponentClass = Vue.extend(ObjectAnimatedText);
       const instance = new ComponentClass({
         propsData: {
-          position: `${position.x} ${position.y} ${position.z}`,
+          position,
           rotation: bullsEye.rotation,
           label: `+${points}`,
           color: '#56b700',
@@ -146,7 +146,7 @@ export default Vue.extend({
       });
 
       // Add time to countdown if points are 4
-      if (!this.disabledCountDown && points === 4) {
+      if (!this.disabledCountdown && points === 4) {
         this.countdown += this.centerBonusTime;
         this.totalPlayTime += this.centerBonusTime;
 

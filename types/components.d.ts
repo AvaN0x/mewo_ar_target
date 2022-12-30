@@ -1,7 +1,7 @@
 type BullsEye = {
   id: number;
-  position: string;
-  rotation: string;
+  position: string | import('three').Vector3;
+  rotation: string | import('three').Vector3;
   down: boolean;
 };
 
