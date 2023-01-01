@@ -4,30 +4,26 @@
 
 <script lang="ts">
 import Vue from 'vue';
+import { generatePositionAndRotationWithAngle } from '~/functions/coordinates';
 
 export default Vue.extend({
-  data: () => ({
-    bullsEyes: [
-      {
-        id: 1,
-        position: '-3 0 -8',
-        rotation: '0 0 0',
+  data() {
+    const bullsEyes = [] as BullsEye[];
+    const count = 3;
+
+    // Generate the bullseyes around the center of the scene with an angle of 20 degrees between each
+    for (let i = 0; i <= count; i++) {
+      bullsEyes.push({
+        id: i,
+        ...generatePositionAndRotationWithAngle(-8, i * 20 - (count / 2) * 20),
         down: false,
-      },
-      {
-        id: 2,
-        position: '0 0 -8',
-        rotation: '0 0 0',
-        down: false,
-      },
-      {
-        id: 3,
-        position: '3 0 -8',
-        rotation: '0 0 0',
-        down: false,
-      },
-    ] as BullsEye[],
-  }),
+      });
+    }
+
+    return {
+      bullsEyes,
+    };
+  },
   methods: {
     onHit({ bullsEye }: GameBaseOnHit) {
       // Set bulls eye down and up after a time between 1 and 3 second
